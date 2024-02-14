@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
+import argparse
 
 def generate_time_series_with_anomalies(num_points=1000, 
                                         anomaly_rate=0.01, 
@@ -78,7 +79,7 @@ if __name__ == "__main__":
                                                                        args.freq,
                                                                        args.amp)
 
-
+    print('Generated!')
     # 데이터프레임 생성
     df = pd.DataFrame({'value': time_series})
     df['anomaly']= 0
@@ -97,3 +98,4 @@ if __name__ == "__main__":
     plt.scatter(df[df['anomaly']== 1].index, df[df['anomaly']== 1]['value'], color='red', label='Anomalies')
     plt.legend()
     plt.savefig(f'./Result/image_{current_datetime}.png')
+    print('Complete!')

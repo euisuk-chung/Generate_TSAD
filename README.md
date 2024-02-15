@@ -1,92 +1,49 @@
-# TS_generator
 
+# 시계열 데이터 Benchmark Data 생성기
 
+이 문서는 시계열 데이터와 이상치를 생성하는 `main.py` 스크립트를 실행하는 방법에 대해 설명합니다. 이 스크립트는 정상 범위의 데이터 포인트와 지정된 비율의 이상치를 포함한 시계열 데이터를 생성합니다. 사용자는 사인 파형, 코사인 파형의 추가, 데이터 포인트의 수, 이상치의 비율 및 기울기를 포함한 여러 매개변수를 통해 생성 과정을 사용자 정의할 수 있습니다.
 
-## Getting started
+## 필수 조건
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+스크립트를 실행하기 전에 Python이 시스템에 설치되어 있어야 합니다. 또한 `numpy`, `pandas`, `matplotlib` 라이브러리가 필요합니다. 이 라이브러리들은 다음 명령어를 통해 설치할 수 있습니다:
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin http://mod.lge.com/hub/dxtech/assets/ts_generator.git
-git branch -M main
-git push -uf origin main
+```bash
+pip install numpy pandas matplotlib
 ```
 
-## Integrate with your tools
+## 사용법
 
-- [ ] [Set up project integrations](http://mod.lge.com/hub/dxtech/assets/ts_generator/-/settings/integrations)
+스크립트는 명령줄 인터페이스(CLI)를 통해 다음과 같이 실행될 수 있습니다:
 
-## Collaborate with your team
+```bash
+python main.py [옵션]
+```
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+사용 가능한 옵션은 다음과 같습니다:
 
-## Test and Deploy
+- `--num_points`: 생성할 데이터 포인트의 총 개수입니다. 기본값은 `1000`입니다.
+- `--anomaly_rate`: 전체 데이터 포인트 중 이상치의 비율입니다. 기본값은 `0.01`입니다.
+- `--normal_range`: 정상 데이터 포인트의 값 범위입니다. 기본값은 `(0, 1)`입니다.
+- `--anomaly_range`: 이상치 데이터 포인트의 값 범위입니다. 기본값은 `(2, 3)`입니다.
+- `--include_sine`: 사인 파형을 데이터에 포함시킬지 여부입니다. 기본값은 `False`입니다.
+- `--include_cosine`: 코사인 파형을 데이터에 포함시킬지 여부입니다. 기본값은 `False`입니다.
+- `--anomaly_length`: 이상치가 연속으로 나타나는 길이입니다. 기본값은 `6`입니다.
+- `--additional_anomaly_prob`: 추가 이상치가 발생할 확률입니다. 기본값은 `0.5`입니다.
+- `--freq`: 사인/코사인 파형의 주파수입니다. 기본값은 `20`입니다.
+- `--amp`: 사인/코사인 파형의 진폭입니다. 기본값은 `0.4`입니다.
+- `--slope`: 데이터의 기울기로, 시계열의 경향성을 결정합니다. 기본값은 `0`입니다.
 
-Use the built-in continuous integration in GitLab.
+예를 들어, default 환경으로 시계열 데이터를 생성하려면 다음 명령어를 사용합니다:
+```bash
+python main.py
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+예를 들어, 500개의 데이터 포인트, 0.02의 이상치 비율, 사인 파형을 포함하고, 기울기가 0.01인 시계열 데이터를 생성하려면 다음 명령어를 사용합니다:
 
-***
+```bash
+python main.py --num_points 500 --anomaly_rate 0.02 --include_sine True --slope 0.01
+```
 
-# Editing this README
+## 결과
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+스크립트를 실행하면 `./Result` 디렉토리에 시계열 데이터가 포함된 CSV 파일과 생성된 데이터의 시각화를 나타내는 PNG 이미지가 저장됩니다. 파일 이름은 스크립트가 실행된 날짜와 시간에 따라 결정됩니다.

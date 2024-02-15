@@ -13,9 +13,34 @@ def generate_time_series_with_anomalies(num_points=1000,
                                         anomaly_length=6,
                                         additional_anomaly_prob=0.4,
                                         freq=20,
-                                        amp=0.5):
+                                        amp=0.5,
+                                        slope=0):
+    """
+    시계열 데이터와 이상치를 생성하는 함수입니다.
+
+    Parameters:
+    - num_points (int): 생성할 데이터 포인트의 총 개수입니다.
+    - anomaly_rate (float): 전체 데이터 포인트 중 이상치의 비율입니다.
+    - normal_range (tuple): 정상 데이터 포인트의 값 범위입니다.
+    - anomaly_range (tuple): 이상치 데이터 포인트의 값 범위입니다.
+    - include_sine (bool): 사인 파형을 데이터에 포함시킬지 여부입니다.
+    - include_cosine (bool): 코사인 파형을 데이터에 포함시킬지 여부입니다.
+    - anomaly_length (int): 이상치가 연속으로 나타나는 길이입니다.
+    - additional_anomaly_prob (float): 추가 이상치가 발생할 확률입니다.
+    - freq (int): 사인/코사인 파형의 주파수입니다.
+    - amp (float): 사인/코사인 파형의 진폭입니다.
+    - slope (float): 데이터의 기울기로, 시계열의 경향성을 결정합니다.
+
+    Returns:
+    - time_series (numpy.ndarray): 생성된 시계열 데이터입니다.
+    - anomaly_indices (list): 이상치의 인덱스 목록입니다.
+    """
+    
     # 기본 시계열 데이터 생성
     time_series = np.random.uniform(low=normal_range[0], high=normal_range[1], size=num_points)
+
+    # 기울기 적용
+    time_series += np.arange(num_points) * slope
 
     # 사인 파형 추가
     if include_sine:
@@ -52,7 +77,6 @@ def generate_time_series_with_anomalies(num_points=1000,
 
     return time_series, anomaly_indices
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Generate time series data with anomalies')
     parser.add_argument('--num_points', type=int, default=1000, help='Number of data points')
@@ -65,6 +89,7 @@ if __name__ == "__main__":
     parser.add_argument('--additional_anomaly_prob', type=float, default=0.5, help='Probability of additional anomalies')
     parser.add_argument('--freq', type=int, default=20, help='Frequency of sine/cosine wave')
     parser.add_argument('--amp', type=float, default=0.4, help='Amplitude of sine/cosine wave')
+    parser.add_argument('--slope', type=float, default=0, help='Slope of the time series trend')
 
     args = parser.parse_args()
 
@@ -77,7 +102,8 @@ if __name__ == "__main__":
                                                                        args.anomaly_length,
                                                                        args.additional_anomaly_prob,
                                                                        args.freq,
-                                                                       args.amp)
+                                                                       args.amp,
+                                                                       args.slope)
 
     print('Generated!')
     # 데이터프레임 생성

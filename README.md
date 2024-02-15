@@ -47,3 +47,15 @@ python main.py --num_points 500 --anomaly_rate 0.02 --include_sine True --slope 
 ## 결과
 
 스크립트를 실행하면 `./Result` 디렉토리에 시계열 데이터가 포함된 CSV 파일과 생성된 데이터의 시각화를 나타내는 PNG 이미지가 저장됩니다. 파일 이름은 스크립트가 실행된 날짜와 시간에 따라 결정됩니다.
+
+예시 결과 1. 일반 노이즈 기반 시계열 생성
+![Result 1](./Result/일반 노이즈 기반 시계열.png)
+
+예시 결과 2. SINE/COSE 노이즈 포함 시계열 생성
+![Result 2](./Result/SINE_COS 노이즈 포함 시계열.png)
+
+예시 결과 3. SINE/COSE 노이즈 + 기울기(0.01) 포함 시계열 생성
+![Result 3](./Result/rSINE_COS 노이즈_기울기(0.01)_시계열.png)
+
+예시 결과 4. SINE/COSE 노이즈 + 기울기(-0.01) 포함 시계열 생성
+![Result 4](./Result/SINE_COS 노이즈_기울기(-0.01)_시계열.png)

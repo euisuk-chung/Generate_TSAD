@@ -55,7 +55,7 @@ python main.py --num_points 500 --anomaly_rate 0.02 --include_sine True --slope 
 ![Result 2](./Result/SINE_COS 노이즈 포함 시계열.png)
 
 예시 결과 3. SINE/COSE 노이즈 + 기울기(0.01) 포함 시계열 생성
-![Result 3](./Result/rSINE_COS 노이즈_기울기(0.01)_시계열.png)
+![Result 3](./Result/SINE_COS 노이즈_기울기_양수_시계열.png)
 
 예시 결과 4. SINE/COSE 노이즈 + 기울기(-0.01) 포함 시계열 생성
-![Result 4](./Result/SINE_COS 노이즈_기울기(-0.01)_시계열.png)
+![Result 4](./Result/SINE_COS 노이즈_기울기_음수_시계열.png)

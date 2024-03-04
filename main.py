@@ -86,7 +86,7 @@ if __name__ == "__main__":
     parser.add_argument('--include_sine', type=bool, default=False, help='Include sine wave')
     parser.add_argument('--include_cosine', type=bool, default=False, help='Include cosine wave')
     parser.add_argument('--anomaly_length', type=int, default=6, help='Length of anomaly')
-    parser.add_argument('--additional_anomaly_prob', type=float, default=0.5, help='Probability of additional anomalies')
+    parser.add_argument('--additional_anomaly_prob', type=float, default=0.5, help='Probability of sequential anomalies')
     parser.add_argument('--freq', type=int, default=20, help='Frequency of sine/cosine wave')
     parser.add_argument('--amp', type=float, default=0.4, help='Amplitude of sine/cosine wave')
     parser.add_argument('--slope', type=float, default=0, help='Slope of the time series trend')
@@ -112,10 +112,10 @@ if __name__ == "__main__":
     df.loc[anomaly_indices, 'anomaly']= 1
 
     # 실행된 날짜와 시간 추가
-    current_datetime = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    current_datetime = datetime.now().strftime('%Y%m%d_%H%M%S')
 
     # 데이터프레임 저장
-    filename = f'./Result/generated_{current_datetime}.csv'
+    filename = f'./Results/data/{current_datetime}_num{args.num_points}_rate_{args.anomaly_rate*100}.csv'
     df.to_csv(filename, index=False)
 
     # 결과 시각화
@@ -123,5 +123,5 @@ if __name__ == "__main__":
     plt.plot(df['value'], label='Time Series')
     plt.scatter(df[df['anomaly']== 1].index, df[df['anomaly']== 1]['value'], color='red', label='Anomalies')
     plt.legend()
-    plt.savefig(f'./Result/image_{current_datetime}.png')
+    plt.savefig(f'./Results/image/{current_datetime}_num{args.num_points}_rate_{args.anomaly_rate*100}.png')
     print('Complete!')

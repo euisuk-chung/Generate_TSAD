@@ -115,7 +115,7 @@ if __name__ == "__main__":
     current_datetime = datetime.now().strftime('%Y%m%d_%H%M%S')
 
     # 데이터프레임 저장
-    filename = f'./Results/data/{current_datetime}_num{args.num_points}_rate_{args.anomaly_rate*100}.csv'
+    filename = f'./Results/data/{current_datetime}_num{args.num_points}_rate_{int(args.anomaly_rate*100)}_slope_{int(args.slope*100)}.csv'
     df.to_csv(filename, index=False)
 
     # 결과 시각화
@@ -123,5 +123,5 @@ if __name__ == "__main__":
     plt.plot(df['value'], label='Time Series')
     plt.scatter(df[df['anomaly']== 1].index, df[df['anomaly']== 1]['value'], color='red', label='Anomalies')
     plt.legend()
-    plt.savefig(f'./Results/image/{current_datetime}_num{args.num_points}_rate_{args.anomaly_rate*100}.png')
+    plt.savefig(f'./Results/image/{current_datetime}_num{args.num_points}_rate_{int(args.anomaly_rate*100)}_slope_{int(args.slope*100)}.png')
     print('Complete!')
